@@ -1,6 +1,29 @@
 ﻿@{
     ViewData["Title"] = "تفاصيل المنتجات";
 }
+<style>
+    .btn {
+        background-color: #0d6efd;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        direction: rtl; /* للاتجاه العربي */
+    }
+
+        .modal-header .modal-title {
+            flex: 1;
+            text-align: start; /* لجعل العنوان على اليمين */
+        }
+
+        .modal-header .btn-close {
+            margin: 0;
+            padding: 0.5rem;
+        }
+</style>
+
 <div class="container my-5">
     <div class="row g-3">
         <div class="col-6">
@@ -9,26 +32,65 @@
                     <img src="https://via.placeholder.com/200x150" alt="صورة المنتج" class="img-fluid rounded shadow-sm">
                 </div>
                 <h6 class="text-primary fw-bold mb-2 small">باقة تصميم سوشيال ميديا</h6>
-                <p class="text-muted small mb-2">
-                    10 تصاميم احترافية لحسابات التواصل.
-                </p>
+                <p class="text-muted small mb-2">10 تصاميم احترافية لحسابات التواصل.</p>
                 <span class="text-success fw-bold d-block mb-2">499 ر.س</span>
-                <a href="#" class="btn btn-sm btn-primary w-100 mt-auto">اطلب الآن</a>
+                <a href="#" class="btn btn-sm btn-primary w-100 mt-auto product-detail-btn"
+                   data-bs-toggle="modal" data-bs-target="#productModal"
+                   data-name="باقة تصميم سوشيال ميديا"
+                   data-desc="تشمل 10 تصاميم احترافية معدّة خصيصًا لإنستقرام، تويتر، وفيسبوك."
+                   data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9691382040195!2d46.67529521538576!3d24.71355198411481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f038f51b3ef0f%3A0x5c06f5a2e3b3a514!2sRiyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2ssa!4v1620000000000!5m2!1sen!2ssa">
+                    تفاصيل
+                </a>
             </div>
         </div>
-
         <div class="col-6">
             <div class="bg-white shadow-sm rounded p-3 h-100 d-flex flex-column">
                 <div class="text-center mb-3">
                     <img src="https://via.placeholder.com/200x150" alt="صورة المنتج" class="img-fluid rounded shadow-sm">
                 </div>
                 <h6 class="text-primary fw-bold mb-2 small">خدمة SEO</h6>
-                <p class="text-muted small mb-2">
-                    تحسين ترتيب موقعك في Google.
-                </p>
+                <p class="text-muted small mb-2">تحسين ترتيب موقعك في Google.</p>
                 <span class="text-success fw-bold d-block mb-2">899 ر.س</span>
-                <a href="#" class="btn btn-sm btn-primary w-100 mt-auto">اطلب الآن</a>
+                <a href="#" class="btn btn-sm btn-primary w-100 mt-auto product-detail-btn"
+                   data-bs-toggle="modal" data-bs-target="#productModal"
+                   data-name="خدمة SEO"
+                   data-desc="تحسين ترتيب الموقع باستخدام تقنيات السيو الحديثة، مع تقارير شهرية."
+                   data-map="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.9691382040195!2d46.67529521538576!3d24.71355198411481!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f038f51b3ef0f%3A0x5c06f5a2e3b3a514!2sRiyadh%2C%20Saudi%20Arabia!5e0!3m2!1sen!2ssa!4v1620000000000!5m2!1sen!2ssa">
+                    تفاصيل
+                </a>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="productModalLabel">تفاصيل المنتج</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="إغلاق"></button>
+            </div>
+            <div class="modal-body">
+                <h6 id="modalProductName" class="fw-bold text-primary"></h6>
+                <p id="modalProductDesc" class="text-muted"></p>
+                <p><strong>اسم الشركة:</strong> <span>شركة الحلول الرقمية</span></p>
+                <div class="mb-3">
+                    <strong>موقع الشركة:</strong>
+                    <div class="ratio ratio-16x9 mt-2">
+                        <iframe id="modalMap" src="" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.querySelectorAll('.product-detail-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                document.getElementById('modalProductName').textContent = this.getAttribute('data-name');
+                document.getElementById('modalProductDesc').textContent = this.getAttribute('data-desc');
+                document.getElementById('modalMap').src = this.getAttribute('data-map');
+            });
+        });
+    </script>
+}
